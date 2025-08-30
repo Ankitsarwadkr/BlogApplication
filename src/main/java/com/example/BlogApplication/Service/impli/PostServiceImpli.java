@@ -30,6 +30,7 @@ public class PostServiceImpli implements PostService {
         dto.setContent(post.getContent());
         dto.setAuthorname(post.getUser().getUsername());
         dto.setCreatedAt(post.getCreatedAt());
+        dto.setLikeCount(post.getLikes()!=null ? post.getLikes().size():0);
 
         return dto;
     }

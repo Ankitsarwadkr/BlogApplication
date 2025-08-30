@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 @Entity
 @Data
@@ -31,4 +32,7 @@ public class Post extends BaseEntity{
 
      @OneToMany(mappedBy = "post", cascade = CascadeType.ALL )
     private Set<Comment> comments=new HashSet<>();
+
+     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Like> likes;
 }

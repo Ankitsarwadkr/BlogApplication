@@ -9,12 +9,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseDto {
+public class LikeResponseDto {
     private Long id;
-    private String title;
-    private String content;
-    private String authorname;
+    private String username;
+    private Long postId;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private int likeCount;
 }
