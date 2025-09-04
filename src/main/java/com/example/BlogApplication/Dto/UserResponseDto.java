@@ -1,5 +1,6 @@
 package com.example.BlogApplication.Dto;
 
+import com.example.BlogApplication.Entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,8 @@ public class UserResponseDto {
     private String username;
     private String email;
     private LocalDateTime createdAt;
+    private Role role;
+
+
+
 }

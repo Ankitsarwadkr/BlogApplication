@@ -2,10 +2,12 @@ package com.example.BlogApplication.Service.impli;
 
 import com.example.BlogApplication.Dto.UserRequestDto;
 import com.example.BlogApplication.Dto.UserResponseDto;
+import com.example.BlogApplication.Entity.Role;
 import com.example.BlogApplication.Entity.User;
 import com.example.BlogApplication.Repositry.UserRepository;
 import com.example.BlogApplication.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpli implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     private UserResponseDto mapToDto(User user)
@@ -33,7 +36,8 @@ public class UserServiceImpli implements UserService {
         User user= User.builder()
                 .username(dto.getUsername())
                 .email(dto.getEmail())
-                .password(dto.getPassword())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .role(Role.USER)
                 .build();
 
         User saved=userRepository.save(user);
