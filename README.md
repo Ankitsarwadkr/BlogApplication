@@ -14,6 +14,8 @@ Supports **Users, Posts, and Comments** with CRUD operations.
 * OAuth2(login with Google)
 * Secured endpoints with Spring Security
 *  Comments and likes with counts
+
+   
 **OpenAI-powered category suggestion for posts**
 
 ### Setup
