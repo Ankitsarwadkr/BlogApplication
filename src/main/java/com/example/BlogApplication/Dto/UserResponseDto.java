@@ -1,6 +1,6 @@
 package com.example.BlogApplication.Dto;
 
-import com.example.BlogApplication.Entity.Role;
+import com.example.BlogApplication.Entity.Type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

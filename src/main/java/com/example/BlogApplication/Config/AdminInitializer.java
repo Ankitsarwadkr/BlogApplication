@@ -1,6 +1,6 @@
 package com.example.BlogApplication.Config;
 
-import com.example.BlogApplication.Entity.Role;
+import com.example.BlogApplication.Entity.Type.Role;
 import com.example.BlogApplication.Entity.User;
 import com.example.BlogApplication.Repositry.UserRepository;
 import lombok.RequiredArgsConstructor;

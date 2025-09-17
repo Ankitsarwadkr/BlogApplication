@@ -1,4 +1,4 @@
-Perfect! Since you want a **simple update** to reflect your new Spring Security + JWT changes, we can revise your original README like this:
+![Build](https://github.com/Ankitsarwadkr/BlogApplication/actions/workflows/ci.yml/badge.svg)
 
 ---
 
@@ -11,7 +11,10 @@ Supports **Users, Posts, and Comments** with CRUD operations.
 
 * JWT-based authentication
 * Role-based authorization (Admin/User)
+* OAuth2(login with Google)
 * Secured endpoints with Spring Security
+*  Comments and likes with counts
+**OpenAI-powered category suggestion for posts**
 
 ### Setup
 
@@ -38,4 +41,30 @@ mvn spring-boot:run
 ```
 
 4. Test APIs using Postman or curl with JWT token authentication.
+   POST /api/auth/register → Register new user
 
+POST /api/auth/login → Login & get JWT token
+
+GET /api/posts → Get all posts
+
+POST /api/posts → Create new post (authenticated)
+
+PUT /api/posts/{id} → Update post (owner/admin)
+
+DELETE /api/posts/{id} → Delete post (owner/admin)
+
+POST /api/posts/{id}/comments → Add comment
+
+POST /api/posts/{id}/like → Like/unlike post
+
+5. Tests
+
+Currently implemented:
+
+AuthService unit tests.
+
+Planned:
+
+PostService, CommentService, LikeService
+
+Integration tests for secured endpoints

@@ -1,6 +1,8 @@
 package com.example.BlogApplication.Entity;
 
 
+import com.example.BlogApplication.Entity.Type.AuthProviderType;
+import com.example.BlogApplication.Entity.Type.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +29,7 @@ public class User extends  BaseEntity {
      private String username;
     @Column(unique = true,nullable = false)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Post> posts = new HashSet<>();
@@ -41,4 +43,9 @@ public class User extends  BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role= Role.USER;
+
+    private String providerId;
+
+    @Enumerated(EnumType.STRING)
+    private AuthProviderType providerType;
 }

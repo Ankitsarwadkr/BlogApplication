@@ -5,11 +5,13 @@ import com.example.BlogApplication.Dto.CommentResponseDto;
 import com.example.BlogApplication.Entity.Comment;
 import com.example.BlogApplication.Entity.Post;
 import com.example.BlogApplication.Entity.User;
+import com.example.BlogApplication.Exception.ResourceNotFoundException;
 import com.example.BlogApplication.Repositry.CommentRepository;
 import com.example.BlogApplication.Repositry.PostRepository;
 import com.example.BlogApplication.Repositry.UserRepository;
 import com.example.BlogApplication.Service.CommentService;
 import com.example.BlogApplication.Service.PostService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,27 +37,30 @@ public class CommentServiceImpli implements CommentService {
 
         return dto;
     }
-
     @Override
-    public CommentResponseDto addComment(CommentRequestDto dto) {
-        User user=userRepository.findById(dto.getUserId())
-                .orElseThrow(()->new RuntimeException("User Not Found"));
+    public CommentResponseDto addComment(CommentRequestDto commentRequestDto, User loggedUser) {
+        Post post=postRepository.findById(commentRequestDto.getPostId()).orElseThrow(()-> new ResourceNotFoundException("Post with Id: "+commentRequestDto.getPostId()+" Not Found "));
 
-        Post post=postRepository.findById(dto.getPostId())
-                .orElseThrow(()-> new RuntimeException("POst Not Found"));
-        Comment comment =Comment.builder()
-                .content(dto.getContent())
-                .user(user)
+        Comment comment= Comment.builder()
+                .content(commentRequestDto.getContent())
+                .user(loggedUser)
                 .post(post)
                 .build();
         return mapToDto(commentRepository.save(comment));
+
     }
 
+
+    @Transactional
     @Override
     public List<CommentResponseDto> getCommentById(Long postId) {
+
+        Post post=postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post With Id "+postId+ " Not Found"));
         return commentRepository.findByPostId(postId)
                 .stream()
                 .map(this::mapToDto).
                 collect(Collectors.toList());
     }
+
+
 }

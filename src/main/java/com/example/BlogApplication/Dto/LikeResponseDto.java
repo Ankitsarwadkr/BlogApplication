@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikeResponseDto {
-    private Long id;
-    private String username;
+
     private Long postId;
-    private LocalDateTime createdAt;
+    private boolean liked;
+    private int totalLikes;
 }

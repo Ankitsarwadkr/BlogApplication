@@ -2,42 +2,31 @@ package com.example.BlogApplication.Controller;
 
 import com.example.BlogApplication.Dto.UserRequestDto;
 import com.example.BlogApplication.Dto.UserResponseDto;
+import com.example.BlogApplication.Security.CustomUserDetails;
 import com.example.BlogApplication.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto dto)
-    {
-        return ResponseEntity.ok(userService.createUser(dto));
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> getUser(@PathVariable Long id)
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDto> getMyProfile(Authentication authentication)
     {
-        return ResponseEntity.ok(userService.getUserById(id));
+        String email= authentication.getName();
+        return  ResponseEntity.ok(userService.getUserByEmail(email));
     }
-
-    @GetMapping
-    public ResponseEntity<List<UserResponseDto>> getAllUser()
+    @PutMapping("/me")
+    public ResponseEntity<UserResponseDto> updateMyProfile(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                                           @RequestBody UserRequestDto updateDto )
     {
-        return ResponseEntity.ok(userService.getAllUsers());
+        return ResponseEntity.ok(userService.updateUserProfile(userDetails.getUsername(),updateDto));
     }
-
-    @DeleteMapping("/{id}")
-     public ResponseEntity<String> deleteUsers(@PathVariable Long id)
-    {
-        userService.deleteUser(id);
-        return  ResponseEntity.ok("User Deleted Succesfully");
-    }
-
 
 }

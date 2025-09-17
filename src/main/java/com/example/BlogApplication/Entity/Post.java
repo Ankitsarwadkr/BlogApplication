@@ -32,6 +32,10 @@ public class Post extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = true)
+    private Category category;
+
      @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,orphanRemoval = true )
     private Set<Comment> comments=new HashSet<>();
 
